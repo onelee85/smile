@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- For assistance related to logback-translator or configuration  -->
+<!-- files in general, please contact the logback user mailing list -->
+<!-- at http://www.qos.ch/mailman/listinfo/logback-user             -->
+<!--                                                                -->
+<!-- For professional support please see                            -->
+<!--    http://www.qos.ch/shop/products/professionalSupport
+      http://logback.qos.ch/translator/
+-->
+<configuration>
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d %p [%c] - &lt;%m&gt;%n</pattern>
+        </encoder>
+    </appender>
+    <appender name="logfile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!--See also http://logback.qos.ch/manual/appenders.html#RollingFileAppender-->
+        <File>${webapp.root}/../logs/star-${jetty.port}.log</File>
+        <encoder>
+            <pattern>%d %p [%c] - %m%n</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <maxIndex>3</maxIndex>
+            <FileNamePattern>${webapp.root}/../logs/star-${jetty.port}.log.%i</FileNamePattern>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <MaxFileSize>4096KB</MaxFileSize>
+        </triggeringPolicy>
+    </appender>
+    <logger name="com.ttpod.changba.web.web.PayController" level="DEBUG"/>
+    <logger name="com.ttpod.changba.web.web.spring" level="INFO"/>
+    <logger name="com.ttpod.changba.web.web" level="${log.web.level}"/>
+    <!--<logger name="com.yeepay" level="DEBUG">-->
+        <!--<appender-ref ref="R"/>-->
+    <!--</logger>-->
+    <root level="INFO">
+        <appender-ref ref="${log.target}"/>
+    </root>
+</configuration>

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.smile</groupId>
+        <artifactId>smile</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>smile-admin</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
+
+    <properties>
+        <contextPath/>
+        <log.target>stdout</log.target>
+        <log.web.level>DEBUG</log.web.level>
+
+        <redis.host>192.168.8.240</redis.host>
+        <redis.port>6379</redis.port>
+        <redis.mem.port>6380</redis.mem.port>
+        <redis.dbIndex>0</redis.dbIndex>
+
+        <aspectj-scope>compile</aspectj-scope>
+        <mongo.cost.write>REPLICA_ACKNOWLEDGED</mongo.cost.write>
+        <mongo.uri>192.168.8.222:10000</mongo.uri>
+        <pic.folder>c:/upload/</pic.folder>
+        <sync.folder>c:/upload/music/</sync.folder>
+        <sync.url>http://s2.ttdtweb.com/status/ktv.list.200</sync.url>
+        <templateLoaderPath>file://empty/admin-view/</templateLoaderPath>
+        <template_update_delay>10</template_update_delay>
+        <dev>product</dev>
+    </properties>
+
+    <profiles>
+
+        <profile>
+            <id>testLocal</id>
+            <properties>
+                <templateLoaderPath>/ftl/</templateLoaderPath>
+                <template_update_delay>0</template_update_delay>
+                <dev>test</dev>
+                <logmongo.uri>${mongo.uri}</logmongo.uri>
+                <pic.domain>http://localhost:8080/img/</pic.domain>
+            </properties>
+
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.codehaus.groovy</groupId>
+                    <artifactId>groovy-all</artifactId>
+                    <version>${groovy-all-compiler-version}</version>
+                    <scope>runtime</scope>
+                </dependency>
+            </dependencies>
+
+        </profile>
+
+
+        <profile>
+            <id>product</id>
+            <properties>
+                <redis.host>10.0.3.66</redis.host>
+                <redis.mem.host>${redis.host}</redis.mem.host>
+                <redis.port>6379</redis.port>
+                <redis.mem.port>6380</redis.mem.port>
+                <mongo.uri>10.0.3.5:10000,10.0.3.13:10000,10.0.3.16:10000</mongo.uri>
+                <logmongo.uri>10.0.3.5:20000,10.0.3.13:20000,10.0.3.16:20000</logmongo.uri>
+                <mongo.cost.write>REPLICA_ACKNOWLEDGED</mongo.cost.write>
+
+                <redis.dbIndex>0</redis.dbIndex>
+                <templateLoaderPath>/ftl/</templateLoaderPath>
+                <pic.domain>http://img.cb.dongting.com/</pic.domain>
+
+                <pic.folder>/empty/upload/</pic.folder>
+                <sync.folder>/empty/upload/music/</sync.folder>
+                <sync.url>http://s2.ttdtweb.com/status/ktv.list.200</sync.url>
+                <log.target>logfile</log.target>
+                <log.web.level>INFO</log.web.level>
+                <groovy-scope>provided</groovy-scope>
+                <aspectj-scope>provided</aspectj-scope>
+
+            </properties>
+
+        </profile>
+
+    </profiles>
+
+
+    <dependencies>
+    <!--
+        <dependency>
+            <groupId>com.ttpod</groupId>
+            <artifactId>ttpod-rest</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.4</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>jsp-api</artifactId>
+            <version>2.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-redis</artifactId>
+            <version>1.0.3.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-mongodb</artifactId>
+            <version>1.2.0.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.freemarker</groupId>
+            <artifactId>freemarker</artifactId>
+            <version>2.3.19</version>
+        </dependency>
+
+    </dependencies>
+    
+</project>
