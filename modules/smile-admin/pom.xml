@@ -55,7 +55,7 @@
                     <groupId>org.codehaus.groovy</groupId>
                     <artifactId>groovy-all</artifactId>
                     <version>${groovy-all-compiler-version}</version>
-                    <scope>runtime</scope>
+                    <scope>runtime </scope>
                 </dependency>
             </dependencies>
 
@@ -82,7 +82,7 @@
                 <sync.url>http://s2.ttdtweb.com/status/ktv.list.200</sync.url>
                 <log.target>logfile</log.target>
                 <log.web.level>INFO</log.web.level>
-                <groovy-scope>provided</groovy-scope>
+                <groovy-scope>compile </groovy-scope>
                 <aspectj-scope>provided</aspectj-scope>
 
             </properties>

@@ -9,11 +9,6 @@
           p:hostName="${redis.host}" p:port="${redis.port}" p:database="${redis.dbIndex}"/>
     <bean id="mainRedis" class="org.springframework.data.redis.core.StringRedisTemplate"
           p:connectionFactory-ref="redisConnectionFactory" />
-    <bean id="seqKGS" class="com.ttpod.rest.persistent.SimpleKGS" p:nameSpace="seq" p:kgsRedis-ref="mainRedis"/>
-    <bean id="userKGS" class="com.ttpod.rest.persistent.HighLowKGS"
-          p:nameSpace="users" p:kgsRedis-ref="mainRedis" p:step="10" p:offset="100000"/>
-    <bean id="songKGS" class="com.ttpod.rest.persistent.HighLowKGS"
-          p:nameSpace="song" p:kgsRedis-ref="mainRedis" p:step="10" p:offset="100000"/>
 
 
     <bean id="liveRedisConnectionFactory"

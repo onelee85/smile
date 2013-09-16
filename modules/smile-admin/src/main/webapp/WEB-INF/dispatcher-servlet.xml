@@ -9,14 +9,20 @@
 
     <context:property-placeholder location="classpath:application.properties" ignore-unresolvable="true"/>
 
-    <context:component-scan base-package="com.ttpod.changba.admin"/>
+    <context:component-scan base-package="com.smile.admin"/>
 
     <mvc:resources mapping="/" location="/index.html" order="0"/>
     <mvc:resources mapping="/favicon.ico" location="/favicon.ico" order="0"/>
     <mvc:resources mapping="/robots.txt" location="/robots.txt" order="0"/>
     <mvc:annotation-driven/>
     <!--<cache:annotation-driven cache-manager="cacheManager" />-->
-
+    <!-- 拦截器 -->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/admin/*" />
+            <bean class="com.smile.admin.web.interceptor.HttpSessionInterceptor" />
+        </mvc:interceptor>
+    </mvc:interceptors>
 
     <!--
 	<mvc:interceptors>
@@ -49,11 +55,15 @@
 
     -->
 
-    <bean class="com.ttpod.rest.web.spring.InterceptorAnnotationAwareClassNameHandlerMapping" />
-    <!-- 使用annocation创建Controller的bean
+    <!-- 使用annocation创建Controller的bean -->
     <mvc:default-servlet-handler/>
-    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter"/>
- -->
+    <bean id="handlerAdapter"  class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"/>
+
+    <!--<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">-->
+        <!--<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>-->
+    <!--</bean>-->
+
+
     <!-- ControllerClassNameHandlerMapping用于匹配我们的Controller -->
     <!--<bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping" >-->
         <!--<property name="interceptors">-->
